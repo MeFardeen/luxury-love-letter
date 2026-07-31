@@ -11,7 +11,7 @@ export default function Hero({ onOpen }: { onOpen: () => void }) {
         className="absolute inset-0 z-0"
       >
         <img
-          src="/images/image_243c26.jpg"
+          src="./images/image_243c26.jpg"
           alt="Cover"
           className="w-full h-full object-cover object-top"
         />

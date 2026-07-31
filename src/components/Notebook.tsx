@@ -8,7 +8,7 @@ import { notebookPages } from '../data/message';
 const FlipBook = HTMLFlipBook as any;
 
 // ── Audio ──────────────────────────────────────────────────────────────────
-const pageTurnAudio = typeof window !== 'undefined' ? new Audio('/audio/page-turn.mp3') : null;
+const pageTurnAudio = typeof window !== 'undefined' ? new Audio('./audio/page-turn.mp3') : null;
 if (pageTurnAudio) pageTurnAudio.volume = 0.55;
 
 let lastPlayTime = 0;
@@ -86,7 +86,7 @@ export default function Notebook({ onFinish }: { onFinish: () => void }) {
                 <div className="mt-4 mx-auto flex-shrink-0 relative z-10" style={{ width: '40%', maxWidth: '140px' }}>
                   <div className="bg-ivory shadow-md p-1 pb-3 border-t-4 border-champagne" style={{ transform: 'rotate(-3deg)' }}>
                     <img
-                      src="/images/image_243c1f.jpg"
+                      src="./images/image_243c1f.jpg"
                       alt="Memory"
                       className="w-full h-auto object-contain block"
                     />

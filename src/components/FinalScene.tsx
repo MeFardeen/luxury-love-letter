@@ -3,9 +3,9 @@ import { motion, AnimatePresence } from 'framer-motion';
 import MusicPlayer from './MusicPlayer';
 
 const BACKGROUND_IMAGES = [
-  "/images/image_243c26.jpg",
-  "/images/image_243c22.jpg",
-  "/images/image_243c1f.jpg"
+  "./images/image_243c26.jpg",
+  "./images/image_243c22.jpg",
+  "./images/image_243c1f.jpg"
 ];
 
 export default function FinalScene({
