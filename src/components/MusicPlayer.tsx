@@ -73,7 +73,7 @@ export default function MusicPlayer({
         onClick={togglePlayback}
         whileHover={{ scale: 1.06 }}
         whileTap={{ scale: 0.94 }}
-        className="relative h-24 w-24 rounded-full border border-champagne/30 bg-[radial-gradient(circle_at_35%_30%,#F4EFE3,#C8B7AD_38%,#600024_39%,#26000f_72%)] shadow-2xl"
+        className="relative flex items-center justify-center h-24 w-24 rounded-full border border-champagne/30 bg-[radial-gradient(circle_at_50%_50%,#F4EFE3_0%,#C8B7AD_35%,#600024_36%,#26000f_100%)] shadow-2xl"
         aria-label={playing ? 'Pause music' : 'Play music'}
       >
         {/* Spinning ring when playing */}
@@ -83,10 +83,11 @@ export default function MusicPlayer({
           }`}
         />
         {/* Inner vinyl hole */}
-        <span className="absolute left-1/2 top-1/2 h-9 w-9 -translate-x-1/2 -translate-y-1/2 rounded-full bg-oxblood shadow-inner" />
-        {/* Play / Pause icon */}
-        <span className="absolute left-1/2 top-[48%] -translate-x-1/2 -translate-y-1/2 text-lg text-champagne select-none">
-          {playing ? 'Ⅱ' : '▶'}
+        <span className="absolute h-9 w-9 rounded-full bg-oxblood shadow-inner flex items-center justify-center">
+          {/* Play / Pause icon */}
+          <span className={`text-lg text-champagne select-none ${playing ? '' : 'ml-1'}`}>
+            {playing ? 'Ⅱ' : '▶'}
+          </span>
         </span>
       </motion.button>
     </div>
