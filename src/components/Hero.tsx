@@ -21,14 +21,19 @@ export default function Hero({ onOpen }: { onOpen: () => void }) {
 
       {/* Text & CTA pinned near bottom */}
       <div className="relative z-10 flex flex-col items-center text-center px-6 pb-24 md:pb-32 w-full">
-        <motion.h1
+        <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 1.5, delay: 0.6, ease: 'easeOut' }}
-          className="font-heading text-fluid-hero text-ivory drop-shadow-2xl"
+          className="flex flex-col items-center drop-shadow-2xl"
         >
-          Happy Girlfriend's Day 🤍
-        </motion.h1>
+          <h1 className="font-heading text-fluid-hero text-ivory leading-none">
+            Happy Girlfriend's Day
+          </h1>
+          <h2 className="font-handwritingPrimary text-4xl md:text-5xl lg:text-6xl text-champagne mt-2 -rotate-2">
+            Miss Riya Raj Singh 🤍
+          </h2>
+        </motion.div>
 
         <motion.p
           initial={{ opacity: 0 }}
