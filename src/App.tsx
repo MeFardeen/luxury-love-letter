@@ -40,8 +40,8 @@ export default function App() {
     // Store the player reference
     bgPlayerRef.current = event.target;
     
-    // Start muted to guarantee it bypasses the browser's autoplay block
-    event.target.mute();
+    // Attempt to force play immediately on load
+    event.target.setVolume(35);
     event.target.playVideo();
   };
 
@@ -59,29 +59,11 @@ export default function App() {
     const player = bgPlayerRef.current;
     if (!player) return;
 
-    const unmuteAndPlay = () => {
-      if (!isMusicPlayerPlaying) {
-        player.unMute();
-        player.setVolume(35);
-        player.playVideo();
-      }
-    };
-
-    // On first interaction, unmute the audio (this is allowed by iOS Safari)
-    window.addEventListener('click', unmuteAndPlay, { once: true });
-    window.addEventListener('touchstart', unmuteAndPlay, { once: true });
-
     if (isMusicPlayerPlaying) {
       player.pauseVideo();
     } else if (started) {
-      // If we transition back to started and no music player, ensure it plays
-      unmuteAndPlay();
+      player.playVideo();
     }
-
-    return () => {
-      window.removeEventListener('click', unmuteAndPlay);
-      window.removeEventListener('touchstart', unmuteAndPlay);
-    };
   }, [isMusicPlayerPlaying, started]);
 
   const content = (
@@ -107,7 +89,6 @@ export default function App() {
           width: '0',
           playerVars: {
             autoplay: 1,
-            mute: 1,
             controls: 0,
             disablekb: 1,
             fs: 0,

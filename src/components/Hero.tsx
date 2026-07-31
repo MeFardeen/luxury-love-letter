@@ -50,15 +50,6 @@ export default function Hero({ onOpen }: { onOpen: () => void }) {
         >
           Open My Heart
         </motion.button>
-
-        <motion.p
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 0.7 }}
-          transition={{ delay: 3.5, duration: 2, repeat: Infinity, repeatType: 'reverse' }}
-          className="font-bodySecondary text-[10px] md:text-xs text-champagne/70 tracking-widest uppercase mt-6"
-        >
-          (Tap anywhere for music)
-        </motion.p>
       </div>
     </section>
   );
