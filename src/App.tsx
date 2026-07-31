@@ -62,11 +62,28 @@ export default function App() {
     const player = bgPlayerRef.current;
     if (!player) return;
 
-    if (!isMusicPlayerPlaying) {
-      player.playVideo();
-    } else {
+    const playMusic = () => {
+      if (!isMusicPlayerPlaying) {
+        player.playVideo();
+      }
+    };
+
+    // Try playing immediately
+    playMusic();
+
+    // Browsers block autoplay until interaction. 
+    // Listen for the first click or touch to guarantee playback starts.
+    window.addEventListener('click', playMusic, { once: true });
+    window.addEventListener('touchstart', playMusic, { once: true });
+
+    if (isMusicPlayerPlaying) {
       player.pauseVideo();
     }
+
+    return () => {
+      window.removeEventListener('click', playMusic);
+      window.removeEventListener('touchstart', playMusic);
+    };
   }, [isMusicPlayerPlaying]);
 
   const content = (
