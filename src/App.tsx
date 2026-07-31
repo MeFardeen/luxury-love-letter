@@ -37,14 +37,12 @@ export default function App() {
   };
 
   const onBgPlayerReady = (event: YouTubeEvent) => {
-    // Store the player reference; playback is managed by the effect below
+    // Store the player reference
     bgPlayerRef.current = event.target;
-    // Set volume so it's subtle in the background
-    event.target.setVolume(35);
-    // Attempt to play immediately (browser autoplay policy may block this until user interacts)
-    if (!isMusicPlayerPlaying) {
-      event.target.playVideo();
-    }
+    
+    // Start muted to guarantee it bypasses the browser's autoplay block
+    event.target.mute();
+    event.target.playVideo();
   };
 
   const onBgPlayerStateChange = (event: YouTubeEvent<number>) => {
@@ -56,35 +54,35 @@ export default function App() {
     }
   };
 
-  // Centralised playback control: play bg piano music continuously,
-  // but pause it if the music player (Tum Ho Toh) is actively playing.
+  // Centralised playback control
   useEffect(() => {
     const player = bgPlayerRef.current;
     if (!player) return;
 
-    const playMusic = () => {
+    const unmuteAndPlay = () => {
       if (!isMusicPlayerPlaying) {
+        player.unMute();
+        player.setVolume(35);
         player.playVideo();
       }
     };
 
-    // Try playing immediately
-    playMusic();
-
-    // Browsers block autoplay until interaction. 
-    // Listen for the first click or touch to guarantee playback starts.
-    window.addEventListener('click', playMusic, { once: true });
-    window.addEventListener('touchstart', playMusic, { once: true });
+    // On first interaction, unmute the audio (this is allowed by iOS Safari)
+    window.addEventListener('click', unmuteAndPlay, { once: true });
+    window.addEventListener('touchstart', unmuteAndPlay, { once: true });
 
     if (isMusicPlayerPlaying) {
       player.pauseVideo();
+    } else if (started) {
+      // If we transition back to started and no music player, ensure it plays
+      unmuteAndPlay();
     }
 
     return () => {
-      window.removeEventListener('click', playMusic);
-      window.removeEventListener('touchstart', playMusic);
+      window.removeEventListener('click', unmuteAndPlay);
+      window.removeEventListener('touchstart', unmuteAndPlay);
     };
-  }, [isMusicPlayerPlaying]);
+  }, [isMusicPlayerPlaying, started]);
 
   const content = (
     <main
@@ -109,6 +107,7 @@ export default function App() {
           width: '0',
           playerVars: {
             autoplay: 1,
+            mute: 1,
             controls: 0,
             disablekb: 1,
             fs: 0,
